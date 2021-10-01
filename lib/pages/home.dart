@@ -6,10 +6,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map data = {};
-
+ 
+ Map data = {};
   @override
   Widget build(BuildContext context) {
+    
     data = data.isNotEmpty
         ? data
         : ModalRoute.of(context)!.settings.arguments as Map;
@@ -18,6 +19,8 @@ class _HomeState extends State<Home> {
     String bgImage = data['isDayTime'] ? 'day.png' : 'night.jpg';
     Color bgColor = data['isDayTime'] ? Colors.blue : Colors.black12;
 
+    // String bgImage = 'night.jpg';
+    // Color bgColor = Colors.black12;
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -34,15 +37,15 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 // ignore: deprecated_member_use
                 FlatButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     dynamic result =
-                        Navigator.pushNamed(context, '/choose_location');
+                        await Navigator.pushNamed(context, '/choose_location');
                     if (result != null) {
                       setState(() {
                         data = {
                           'time': result['time'],
                           'location': result['location'],
-                          'isDaytime': result['isDayTime'],
+                          'isDayTime': result['isDayTime'],
                           'flag': result['flag'],
                         };
                       });

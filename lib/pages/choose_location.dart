@@ -51,12 +51,12 @@ class _LocationsState extends State<Locations> {
     ),
   ];
 
-  Future<void> updateTime(index) async {
+  void updateTime(index) async {
     WorldTime instance = locations[index];
-    await instance.getTime();
+    await instance.getTime(locations[index]);
 
     // navigate to home screen
-    Navigator.pop(context, {
+  Navigator.pop(context,  {
       'location': instance.location,
       'flag': instance.flag,
       'time': instance.time,

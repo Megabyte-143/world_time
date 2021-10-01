@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class WorldTime {
-  String location = ''; //location name for UI
+  String location; //location name for UI
   String time = ''; //the time in that location
-  String flag = ''; //url to an asset flag icon
-  String url = ''; //location url for api endpoint
+  String flag; //url to an asset flag icon
+  String url; //location url for api endpoint
   bool isDayTime = false; //true or false if day time or not
 
   WorldTime({
@@ -15,7 +15,7 @@ class WorldTime {
     required this.url,
   });
 
-  Future<void> getTime() async {
+  Future<void> getTime(WorldTime wt) async {
     try {
       //make the request
       Response response =
@@ -33,8 +33,8 @@ class WorldTime {
           Duration(hours: int.parse(offset), minutes: int.parse(offsetmin)));
 
       //set the time property
-      isDayTime = (now.hour > 6 && now.hour < 20) ? true : false;
-      time = DateFormat('kk:mm').format(now);
+      wt.isDayTime = (now.hour > 6 && now.hour < 20) ? true : false;
+      wt.time = DateFormat('kk:mm').format(now);
     } catch (e) {
       print('caught error " $e');
       time = 'could not get time data';
